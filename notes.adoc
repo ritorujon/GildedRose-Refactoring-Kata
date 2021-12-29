@@ -1,0 +1,16 @@
+= plan
+
+* add tests based on requirements
+* refactor/simplify the logic
+* fix to comply with the requirements
+   ** "Sulfuras*" instead of only "Sulfuras, Hand of Ragnaros"
+   ** "Backstage passes*" instead of only "Backstage passes to a TAFKAL80ETC concert"
+* add new item (if needed, it can be added at this point, before additional refactoring)
+* additional refactoring
+  ** categories instead of specific items?
+  ** more objective approach vs update logic in one method?
+* additional talking points
+  ** updateQuality() can be run only once a day - it's not idempotent
+  => there is no way to recover if it fails at some point
+  => it's not suitable for more complicated processing with remote resources nor larger datasets (which can't be processed in-memory)
+
