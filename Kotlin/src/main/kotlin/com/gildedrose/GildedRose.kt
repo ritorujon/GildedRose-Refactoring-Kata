@@ -12,27 +12,28 @@ class GildedRose(var items: Array<Item>) {
                 return
             }
             "Aged Brie" -> {
-                item.increaseQuality(1)
-                if (item.sellIn <= 0) {
+                if (item.sellIn > 0) {
                     item.increaseQuality(1)
+                } else {
+                    item.increaseQuality(2)
                 }
             }
             "Backstage passes to a TAFKAL80ETC concert" -> {
-                item.increaseQuality(1)
-                if (item.sellIn < 11) {
+                if (item.sellIn > 10) {
                     item.increaseQuality(1)
-                }
-                if (item.sellIn < 6) {
-                    item.increaseQuality(1)
-                }
-                if (item.sellIn <= 0) {
+                } else if (item.sellIn > 5) {
+                    item.increaseQuality(2)
+                } else if (item.sellIn > 0) {
+                    item.increaseQuality(3)
+                } else {
                     item.quality = 0
                 }
             }
             else -> {
-                item.decreaseQuality(1)
-                if (item.sellIn <= 0) {
+                if (item.sellIn > 0) {
                     item.decreaseQuality(1)
+                } else {
+                    item.decreaseQuality(2)
                 }
             }
         }
