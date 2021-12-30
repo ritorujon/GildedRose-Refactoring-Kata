@@ -33,9 +33,8 @@ class GildedRose(var items: Array<Item>) {
             }
         }
 
-        item.sellIn--
 
-        if (item.sellIn < 0) {
+        if (item.sellIn <= 0) {
             if (item.name == "Aged Brie") {
                 if (item.quality < 50) {
                     item.quality++
@@ -50,6 +49,9 @@ class GildedRose(var items: Array<Item>) {
                 }
             }
         }
+
+        item.sellIn--
+
     }
 
 }
