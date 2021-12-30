@@ -7,6 +7,7 @@ class GildedRose(var items: Array<Item>) {
     }
 
     private fun updateItemQuality(item: Item) {
+        if (item.name == "Sulfuras, Hand of Ragnaros") return
         if (item.name == "Aged Brie" || item.name == "Backstage passes to a TAFKAL80ETC concert") {
             if (item.quality < 50) {
                 item.quality = item.quality + 1
