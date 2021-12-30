@@ -8,36 +8,40 @@ class GildedRose(var items: Array<Item>) {
 
     private fun updateItemQuality(item: Item) {
         when (item.name) {
-            "Sulfuras, Hand of Ragnaros" -> {
-                return
-            }
-            "Aged Brie" -> {
-                if (item.sellIn > 0) {
-                    item.increaseQuality(1)
-                } else {
-                    item.increaseQuality(2)
-                }
-            }
-            "Backstage passes to a TAFKAL80ETC concert" -> {
-                if (item.sellIn > 10) {
-                    item.increaseQuality(1)
-                } else if (item.sellIn > 5) {
-                    item.increaseQuality(2)
-                } else if (item.sellIn > 0) {
-                    item.increaseQuality(3)
-                } else {
-                    item.quality = 0
-                }
-            }
-            else -> {
-                if (item.sellIn > 0) {
-                    item.decreaseQuality(1)
-                } else {
-                    item.decreaseQuality(2)
-                }
-            }
+            "Sulfuras, Hand of Ragnaros" -> return
+            "Aged Brie" -> updateAgedItemQuality(item)
+            "Backstage passes to a TAFKAL80ETC concert" -> updateBackstagePassQuality(item)
+            else -> updateNormalItemQuality(item)
         }
         item.sellIn--
+    }
+
+    private fun updateNormalItemQuality(item: Item) {
+        if (item.sellIn > 0) {
+            item.decreaseQuality(1)
+        } else {
+            item.decreaseQuality(2)
+        }
+    }
+
+    private fun updateBackstagePassQuality(item: Item) {
+        if (item.sellIn > 10) {
+            item.increaseQuality(1)
+        } else if (item.sellIn > 5) {
+            item.increaseQuality(2)
+        } else if (item.sellIn > 0) {
+            item.increaseQuality(3)
+        } else {
+            item.quality = 0
+        }
+    }
+
+    private fun updateAgedItemQuality(item: Item) {
+        if (item.sellIn > 0) {
+            item.increaseQuality(1)
+        } else {
+            item.increaseQuality(2)
+        }
     }
 
     private fun Item.increaseQuality(increase: Int) {
