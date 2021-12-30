@@ -56,25 +56,33 @@ internal class GildedRoseTest {
     @Test
     fun agedItem_maximumQuality_beforeSellBy() {
         val updatedItems = updateItems(
+            Item("Aged Brie", 1, 48),
             Item("Aged Brie", 11, 49),
             Item("Aged Brie", 11, 50)
         )
-        assertEquals(10, updatedItems[0].sellIn, "Aged item [0] - SellIn should be reduced by 1")
-        assertEquals(50, updatedItems[0].quality, "Aged item [0] - Quality should increase to 50 (maximum)")
+        assertEquals(0, updatedItems[0].sellIn, "Aged item [0] - SellIn should be reduced by 1")
         assertEquals(10, updatedItems[1].sellIn, "Aged item [1] - SellIn should be reduced by 1")
-        assertEquals(50, updatedItems[1].quality, "Aged item [1] - Quality should stay at 50 (maximum)")
+        assertEquals(10, updatedItems[2].sellIn, "Aged item [2] - SellIn should be reduced by 1")
+
+        assertEquals(49, updatedItems[0].quality, "Aged item [0] - Quality should increased by 1")
+        assertEquals(50, updatedItems[1].quality, "Aged item [1] - Quality should increase to 50 (maximum)")
+        assertEquals(50, updatedItems[2].quality, "Aged item [2] - Quality should stay at 50 (maximum)")
     }
 
     @Test
     fun agedItem_maximumQuality_afterSellBy() {
         val updatedItems = updateItems(
+            Item("Aged Brie", 0, 48),
             Item("Aged Brie", 0, 49),
             Item("Aged Brie", 0, 50)
         )
-        assertEquals(-1, updatedItems[0].sellIn, "Aged item - SellIn should be reduced by 1")
-        assertEquals(50, updatedItems[0].quality, "Aged item - Quality should increase to 50 (maximum)")
-        assertEquals(-1, updatedItems[1].sellIn, "Aged item - SellIn should be reduced by 1")
-        assertEquals(50, updatedItems[1].quality, "Aged item - Quality should stay at 50 (maximum)")
+        assertEquals(-1, updatedItems[0].sellIn, "Aged item [0] - SellIn should be reduced by 1")
+        assertEquals(-1, updatedItems[1].sellIn, "Aged item [1] - SellIn should be reduced by 1")
+        assertEquals(-1, updatedItems[2].sellIn, "Aged item [2] - SellIn should be reduced by 1")
+
+        assertEquals(50, updatedItems[0].quality, "Aged item [0] - Quality should increase to 50 (maximum)")
+        assertEquals(50, updatedItems[1].quality, "Aged item [1] - Quality should increase to 50 (maximum)")
+        assertEquals(50, updatedItems[2].quality, "Aged item [2] - Quality should stay at 50 (maximum)")
     }
 
     @Test
@@ -85,10 +93,11 @@ internal class GildedRoseTest {
             Item("Sulfuras, Hand of Ragnaros", -1, 80)
         )
         assertEquals(11, updatedItems[0].sellIn, "Legendary item [0] - SellIn should stay constant")
-        assertEquals(80, updatedItems[0].quality, "Legendary item [0] - Quality should stay constant")
         assertEquals(0, updatedItems[1].sellIn, "Legendary item [1] - SellIn should stay constant")
-        assertEquals(80, updatedItems[1].quality, "Legendary item [1] - Quality should stay constant")
         assertEquals(-1, updatedItems[2].sellIn, "Legendary item [2] - SellIn should stay constant")
+
+        assertEquals(80, updatedItems[0].quality, "Legendary item [0] - Quality should stay constant")
+        assertEquals(80, updatedItems[1].quality, "Legendary item [1] - Quality should stay constant")
         assertEquals(80, updatedItems[2].quality, "Legendary item [2] - Quality should stay constant")
     }
 
@@ -105,20 +114,20 @@ internal class GildedRoseTest {
 
         )
         assertEquals(19, updatedItems[0].sellIn, "Backstage passes [0] - SellIn should be reduced by 1")
-        assertEquals(10, updatedItems[1].sellIn, "Backstage passes [0] - SellIn should be reduced by 1")
-        assertEquals(9, updatedItems[2].sellIn, "Backstage passes [0] - SellIn should be reduced by 1")
-        assertEquals(4, updatedItems[3].sellIn, "Backstage passes [0] - SellIn should be reduced by 1")
-        assertEquals(0, updatedItems[4].sellIn, "Backstage passes [0] - SellIn should be reduced by 1")
-        assertEquals(-1, updatedItems[5].sellIn, "Backstage passes [0] - SellIn should be reduced by 1")
-        assertEquals(-2, updatedItems[6].sellIn, "Backstage passes [0] - SellIn should be reduced by 1")
+        assertEquals(10, updatedItems[1].sellIn, "Backstage passes [1] - SellIn should be reduced by 1")
+        assertEquals(9, updatedItems[2].sellIn, "Backstage passes [2] - SellIn should be reduced by 1")
+        assertEquals(4, updatedItems[3].sellIn, "Backstage passes [3] - SellIn should be reduced by 1")
+        assertEquals(0, updatedItems[4].sellIn, "Backstage passes [4] - SellIn should be reduced by 1")
+        assertEquals(-1, updatedItems[5].sellIn, "Backstage passes [5] - SellIn should be reduced by 1")
+        assertEquals(-2, updatedItems[6].sellIn, "Backstage passes [6] - SellIn should be reduced by 1")
 
         assertEquals(12, updatedItems[0].quality, "Backstage passes [0] - Quality should be increased by 1, when SellIn > 10")
-        assertEquals(12, updatedItems[1].quality, "Backstage passes [0] - Quality should be increased by 1, when SellIn > 10")
-        assertEquals(13, updatedItems[2].quality, "Backstage passes [0] - Quality should be increased by 2, when 10 >= SellIn > 5")
-        assertEquals(14, updatedItems[3].quality, "Backstage passes [0] - Quality should be increased by 3, when 5 >= SellIn > 0")
-        assertEquals(14, updatedItems[4].quality, "Backstage passes [0] - Quality should be reduced by 3, when 5 >= SellIn > 0")
-        assertEquals(0, updatedItems[5].quality, "Backstage passes [0] - Quality should be set to 0 after the concert (SellIn <= 0)")
-        assertEquals(0, updatedItems[6].quality, "Backstage passes [0] - Quality should be set to 0 after the concert (SellIn <= 0)")
+        assertEquals(12, updatedItems[1].quality, "Backstage passes [1] - Quality should be increased by 1, when SellIn > 10")
+        assertEquals(13, updatedItems[2].quality, "Backstage passes [2] - Quality should be increased by 2, when 10 >= SellIn > 5")
+        assertEquals(14, updatedItems[3].quality, "Backstage passes [3] - Quality should be increased by 3, when 5 >= SellIn > 0")
+        assertEquals(14, updatedItems[4].quality, "Backstage passes [4] - Quality should be reduced by 3, when 5 >= SellIn > 0")
+        assertEquals(0, updatedItems[5].quality, "Backstage passes [5] - Quality should be set to 0 after the concert (SellIn <= 0)")
+        assertEquals(0, updatedItems[6].quality, "Backstage passes [6] - Quality should be set to 0 after the concert (SellIn <= 0)")
     }
 
     @Test
@@ -129,12 +138,12 @@ internal class GildedRoseTest {
             Item("Backstage passes to a TAFKAL80ETC concert", 5, 49),
         )
         assertEquals(19, updatedItems[0].sellIn, "Backstage passes [0] - SellIn should be reduced by 1")
-        assertEquals(7, updatedItems[1].sellIn, "Backstage passes [0] - SellIn should be reduced by 1")
-        assertEquals(4, updatedItems[2].sellIn, "Backstage passes [0] - SellIn should be reduced by 1")
+        assertEquals(7, updatedItems[1].sellIn, "Backstage passes [1] - SellIn should be reduced by 1")
+        assertEquals(4, updatedItems[2].sellIn, "Backstage passes [2] - SellIn should be reduced by 1")
 
         assertEquals(50, updatedItems[0].quality, "Backstage passes [0] - Quality should stay at 50 (maximum)")
-        assertEquals(50, updatedItems[1].quality, "Backstage passes [0] - Quality should increase to 50 (maximum)")
-        assertEquals(50, updatedItems[2].quality, "Backstage passes [0] - Quality should increase to 50 (maximum)")
+        assertEquals(50, updatedItems[1].quality, "Backstage passes [1] - Quality should increase to 50 (maximum)")
+        assertEquals(50, updatedItems[2].quality, "Backstage passes [2] - Quality should increase to 50 (maximum)")
     }
 
 }
