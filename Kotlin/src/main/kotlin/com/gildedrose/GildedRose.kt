@@ -20,9 +20,7 @@ class GildedRose(var items: Array<Item>) {
                 item.increaseQuality(1)
             }
         } else {
-            if (item.quality > 0) {
-                item.quality--
-            }
+            item.decreaseQuality(1)
         }
 
         if (item.sellIn <= 0) {
@@ -32,9 +30,7 @@ class GildedRose(var items: Array<Item>) {
                 if (item.name == "Backstage passes to a TAFKAL80ETC concert") {
                     item.quality = 0
                 } else {
-                    if (item.quality > 0) {
-                        item.quality--
-                    }
+                    item.decreaseQuality(1)
                 }
             }
         }
@@ -43,6 +39,10 @@ class GildedRose(var items: Array<Item>) {
 
     private fun Item.increaseQuality(increase: Int) {
         quality = minOf(quality + increase, 50)
+    }
+
+    private fun Item.decreaseQuality(decrease: Int) {
+        quality = maxOf(quality - decrease, 0)
     }
 
 }
