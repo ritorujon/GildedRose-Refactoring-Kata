@@ -8,9 +8,9 @@ class GildedRose(var items: Array<Item>) {
 
     private fun updateItemQuality(item: Item) {
         when (item.name) {
-            "Sulfuras, Hand of Ragnaros" -> return
-            "Aged Brie" -> updateAgedItemQuality(item)
-            "Backstage passes to a TAFKAL80ETC concert" -> updateBackstagePassQuality(item)
+            in Regex("Sulfuras.*") -> return
+            in Regex("Aged.*") -> updateAgedItemQuality(item)
+            in Regex("Backstage pass.*") -> updateBackstagePassQuality(item)
             else -> updateNormalItemQuality(item)
         }
         item.sellIn--
@@ -41,4 +41,5 @@ class GildedRose(var items: Array<Item>) {
         quality = maxOf(quality - decrease, 0)
     }
 
+    operator fun Regex.contains(text: CharSequence): Boolean = this.matches(text)
 }
