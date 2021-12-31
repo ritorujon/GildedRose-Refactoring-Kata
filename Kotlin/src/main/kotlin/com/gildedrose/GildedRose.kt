@@ -11,6 +11,7 @@ class GildedRose(var items: Array<Item>) {
             in Regex("Sulfuras.*") -> return
             in Regex("Aged.*") -> updateAgedItemQuality(item)
             in Regex("Backstage pass.*") -> updateBackstagePassQuality(item)
+            in Regex("Conjured.*") -> updateConjuredItemQuality(item)
             else -> updateNormalItemQuality(item)
         }
         item.sellIn--
@@ -27,6 +28,10 @@ class GildedRose(var items: Array<Item>) {
             item.sellIn > 0 -> item.increaseQuality(3)
             else -> item.quality = 0
         }
+    }
+
+    private fun updateConjuredItemQuality(item: Item) {
+        if (item.sellIn > 0) item.decreaseQuality(2) else item.decreaseQuality(4)
     }
 
     private fun updateNormalItemQuality(item: Item) {

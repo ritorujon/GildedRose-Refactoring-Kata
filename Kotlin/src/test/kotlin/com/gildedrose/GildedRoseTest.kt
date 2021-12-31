@@ -40,6 +40,20 @@ internal class GildedRoseTest {
     }
 
     @Test
+    fun conjuredItem_beforeSellBy() {
+        val updatedItems = updateItems(Item("Conjured item", 11, 11))
+        assertEquals(10, updatedItems[0].sellIn, "Conjured item - SellIn should be reduced by 1")
+        assertEquals(9, updatedItems[0].quality, "Conjured item - Quality should be reduced by 2")
+    }
+
+    @Test
+    fun conjuredItem_afterSellBy() {
+        val updatedItems = updateItems(Item("Conjured item XY", 0, 11))
+        assertEquals(-1, updatedItems[0].sellIn, "Conjured item - SellIn should be reduced by 1")
+        assertEquals(7, updatedItems[0].quality, "Conjured item - Quality should be reduced by 4")
+    }
+
+    @Test
     fun agedItem_beforeSellBy() {
         val updatedItems = updateItems(Item("Aged Brie", 11, 11))
         assertEquals(10, updatedItems[0].sellIn, "Aged item - SellIn should be reduced by 1")
