@@ -16,32 +16,21 @@ class GildedRose(var items: Array<Item>) {
         item.sellIn--
     }
 
-    private fun updateNormalItemQuality(item: Item) {
-        if (item.sellIn > 0) {
-            item.decreaseQuality(1)
-        } else {
-            item.decreaseQuality(2)
-        }
+    private fun updateAgedItemQuality(item: Item) {
+        if (item.sellIn > 0) item.increaseQuality(1) else item.increaseQuality(2)
     }
 
     private fun updateBackstagePassQuality(item: Item) {
-        if (item.sellIn > 10) {
-            item.increaseQuality(1)
-        } else if (item.sellIn > 5) {
-            item.increaseQuality(2)
-        } else if (item.sellIn > 0) {
-            item.increaseQuality(3)
-        } else {
-            item.quality = 0
+        when {
+            item.sellIn > 10 -> item.increaseQuality(1)
+            item.sellIn > 5 -> item.increaseQuality(2)
+            item.sellIn > 0 -> item.increaseQuality(3)
+            else -> item.quality = 0
         }
     }
 
-    private fun updateAgedItemQuality(item: Item) {
-        if (item.sellIn > 0) {
-            item.increaseQuality(1)
-        } else {
-            item.increaseQuality(2)
-        }
+    private fun updateNormalItemQuality(item: Item) {
+        if (item.sellIn > 0) item.decreaseQuality(1) else item.decreaseQuality(2)
     }
 
     private fun Item.increaseQuality(increase: Int) {
