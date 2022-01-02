@@ -8,7 +8,7 @@
   ** "Aged*" instead of only "Aged Brie"
   ** this is something which should be normally discussed and verified with the PO or the client, thought I don't have that option in this exercise and there is clear mismatch in the requirements and the existing code.
   ** it is needed (to some extent) to support the new functionality according to the requirements and existing test for the new requirement
-  ** add new item (if needed, it can be added at this point, before additional refactoring)
+* add new item (if needed, it can be added at this point, before additional refactoring)
 * additional refactoring
   ** categories instead of specific items?
   ** more objective approach vs update logic in one method?
