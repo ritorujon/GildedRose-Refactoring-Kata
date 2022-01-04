@@ -1,6 +1,18 @@
 package com.gildedrose
 
 abstract class CategorizedItem(private val item: Item) {
+    companion object {
+        fun from(item: Item): CategorizedItem {
+            return when (item.name) {
+                in "Sulfuras.*".toRegex() -> LegendaryItem(item)
+                in "Aged.*".toRegex() -> AgedItem(item)
+                in "Backstage pass.*".toRegex() -> BackstagePass(item)
+                in "Conjured.*".toRegex() -> ConjuredItem(item)
+                else -> NormalItem(item)
+            }
+        }
+    }
+
     var quality
         get() = item.quality
         protected set(value) {
@@ -67,3 +79,5 @@ class NormalItem(item: Item) : CategorizedItem(item) {
 
     }
 }
+
+operator fun Regex.contains(text: CharSequence): Boolean = this.matches(text)
